@@ -1,0 +1,16 @@
+[package]
+name = "UNIT3D_IRC_Bot"
+version = "0.0.1"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+tokio-stream = "0.1"
+irc = "1.0.0"
+reqwest = { version = "0.11", features = ["json"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "0.7"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+env_logger = "0.11.7"
