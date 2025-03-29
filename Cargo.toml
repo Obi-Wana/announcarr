@@ -1,6 +1,6 @@
 [package]
-name = "UNIT3D_IRC_Bot"
-version = "0.0.1"
+name = "announcarr"
+version = "1.0.0"
 edition = "2021"
 
 [dependencies]
