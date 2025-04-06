@@ -14,7 +14,9 @@ nickname = "Nick"
 password = "Server Pass"
 server = "Server URL"
 port = 6697
+use_tls = true/false        # Should use TLS connection. Choices: true|false
 channel = "#Channel"
+oper = true|false           # Should send oper command or not. Choices: true|false
 
 [api]
 url = "API URL"

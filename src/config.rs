@@ -16,9 +16,11 @@ pub struct ApiConfig {
 pub struct IrcConfig {
     pub server: String,
     pub port: u16,
+    pub use_tls: bool,
     pub channel: String,
     pub nickname: String,
     pub password: String,
+    pub oper: Option<bool>,
 }
 
 #[derive(Debug, Deserialize)]

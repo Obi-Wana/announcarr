@@ -34,7 +34,7 @@ impl IrcClient {
             password: Some(config.password.to_string()),
             server: Some(config.server.to_owned()),
             port: Some(config.port),
-            use_tls: Some(true),
+            use_tls: Some(config.use_tls),
             channels: vec![config.channel.to_string()],
             ..Config::default()
         };
@@ -71,6 +71,13 @@ impl IrcClient {
             if let Command::Response(_, ref text) = &message.command {
                 if text.contains(&String::from("End of /NAMES list.")) {
                     info!("✅ Channel {} joined", self.config.channel);
+
+                    // Now that we're fully connected, try OPER if needed
+                    if let Some(true) = &self.config.oper {
+                        info!("⏳ Attempting to gain operator privileges...");
+                        self.client.send_oper(&self.config.nickname, &self.config.password)?;
+                    }
+
                     return Ok(());
                 }
             }
