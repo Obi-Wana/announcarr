@@ -86,7 +86,7 @@ impl IrcClient {
         while let Some(message) = self.stream.next().await {
             let message = message?;
 
-            if let Command::NOTICE(target, content) = message.command {
+            if let Command::NOTICE(_target, content) = message.command {
                 if content.contains("Password accepted") {
                     info!("✅ NickServ identification successful");
                     break;
