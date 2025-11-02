@@ -62,6 +62,38 @@ impl IrcClient {
     pub async fn connect(&mut self) -> irc::error::Result<()> {
         self.client.identify()?;
 
+        // Wait for successful registration (001 RPL_WELCOME) until nickserv auth
+        info!("⏳ Waiting for server registration...");
+        while let Some(message) = self.stream.next().await {
+            let message = message?;
+
+            // Check for successful registration
+            if let Command::Response(Response::RPL_WELCOME, _) = message.command {
+                info!("✅ Registered with server");
+                break;
+            }
+
+            // Also respond to PING during registration
+            if let Command::PING(server, _) = &message.command {
+                self.client.send_pong(server)?;
+            }
+        }
+
+        info!("🪪  NickServ identifying as {} ...", self.config.nickname);
+        self.client.send_privmsg("NickServ", format!("IDENTIFY {} {}", self.config.nickname, self.config.ns_password))?;
+        // Wait for the NickServ confirmation message
+        info!("⏳ Waiting for NickServ confirmation...");
+        while let Some(message) = self.stream.next().await {
+            let message = message?;
+
+            if let Command::NOTICE(target, content) = message.command {
+                if content.contains("Password accepted") {
+                    info!("✅ NickServ identification successful");
+                    break;
+                }
+            }
+        }
+
         info!("⏳ Joining {} ...", self.config.channel);
         self.client.send_join(self.config.channel.to_string())?;
 

@@ -21,6 +21,7 @@ pub struct IrcConfig {
     pub nickname: String,
     pub password: String,
     pub oper: Option<bool>,
+    pub ns_password: String,
 }
 
 #[derive(Debug, Deserialize)]
