@@ -265,7 +265,7 @@ impl IrcClient {
 
         // Format the message
         format!(
-            "Category [{}] Type [{}] Name [{}] Resolution [{}] Freeleech [{}] Internal [{}] Double Upload [{}] Size [{} GB] Uploader [{}] Url [{}]",
+            "Category [{}] Type [{}] Name [{}] Resolution [{}] Freeleech [{}] Internal [{}] Double Upload [{}] Size [{} GiB] Uploader [{}] Url [{}]",
             item.attributes.category,
             item.attributes.r#type,
             item.attributes.name,
