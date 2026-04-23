@@ -43,7 +43,7 @@ dependencies = [
 
 [[package]]
 name = "announcarr"
-version = "1.0.4"
+version = "1.0.5"
 dependencies = [
  "env_logger",
  "irc",
