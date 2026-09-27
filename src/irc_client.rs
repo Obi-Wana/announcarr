@@ -240,6 +240,13 @@ impl IrcClient {
         // Handle optional resolution
         let resolution = item.attributes.resolution.as_deref().unwrap_or("N/A");
 
+        // Determine upload cap status
+        let upload_cap_status = if item.attributes.upload_cap {
+            "Yes"
+        } else {
+            "No"
+        };
+
         // Determine internal status
         let internal_status = match item.attributes.internal {
             0 => "No",
@@ -265,12 +272,13 @@ impl IrcClient {
 
         // Format the message
         format!(
-            "Category [{}] Type [{}] Name [{}] Resolution [{}] Freeleech [{}] Internal [{}] Double Upload [{}] Size [{} GiB] Uploader [{}] Url [{}]",
+            "Category [{}] Type [{}] Name [{}] Resolution [{}] Freeleech [{}] Upload Cap: [{}] Internal [{}] Double Upload [{}] Size [{} GiB] Uploader [{}] Url [{}]",
             item.attributes.category,
             item.attributes.r#type,
             item.attributes.name,
             resolution,
             item.attributes.freeleech,
+            upload_cap_status,
             internal_status,
             du_status,
             size_in_gb,
