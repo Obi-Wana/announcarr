@@ -20,6 +20,7 @@ pub struct Attributes {
     pub name: String,
     pub resolution: Option<String>,
     pub freeleech: String,
+    pub upload_cap: bool,
     pub internal: u8,
     pub double_upload: bool,
     pub size: u64,
